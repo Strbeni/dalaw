@@ -4,7 +4,7 @@
 <head>
         <!-- meta tag -->
         <meta charset="utf-8">
-        <title>Articles  ||  Dhwaj &amp; Associates</title>
+        <title>Publications  ||  Dhwaj &amp; Associates</title>
         <meta name="description" content="">
         <!-- responsive tag -->
         <meta http-equiv="x-ua-compatible" content="ie=edge">
@@ -53,10 +53,17 @@
                 padding: 40px 0 10px;
                 background: #f5f5f5;
             }
+            .toolbar-row {
+                display: flex;
+                gap: 12px;
+                max-width: 900px;
+                margin: 0 auto 25px;
+                align-items: center;
+            }
             .articles-search-wrap {
                 position: relative;
-                max-width: 600px;
-                margin: 0 auto 25px;
+                flex: 1;
+                min-width: 0;
             }
             .articles-search-wrap input {
                 width: 100%;
@@ -85,6 +92,29 @@
                 font-size: 18px;
                 pointer-events: none;
             }
+            /* Filter Dropdowns */
+            .filter-select {
+                padding: 14px 16px;
+                border: 2px solid #e0d6c8;
+                border-radius: 50px;
+                font-size: 14px;
+                font-family: 'Playfair Display', serif;
+                color: #1f2839;
+                background: #fff;
+                outline: none;
+                cursor: pointer;
+                transition: border-color 0.3s;
+                appearance: none;
+                -webkit-appearance: none;
+                background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23b69d74' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+                background-repeat: no-repeat;
+                background-position: right 14px center;
+                padding-right: 36px;
+                min-width: 160px;
+            }
+            .filter-select:focus {
+                border-color: #b69d74;
+            }
             .no-results-msg {
                 display: none;
                 text-align: center;
@@ -99,8 +129,72 @@
                 margin-bottom: 15px;
                 color: #ddd;
             }
+            /* Fixed image dimensions */
+            .blog-item .blog-image {
+                width: 100%;
+                height: 180px;
+                overflow: hidden;
+            }
+            .blog-item .blog-image img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                display: block;
+            }
             .blog-item {
                 transition: opacity 0.3s ease, transform 0.3s ease;
+            }
+            /* Language Toggle */
+            .lang-toggle {
+                position: fixed;
+                top: 100px;
+                right: 20px;
+                z-index: 9999;
+                display: none;
+                background: #ffffff;
+                border-radius: 50px;
+                box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+                overflow: hidden;
+                border: 2px solid #b69d74;
+            }
+            .lang-toggle.visible {
+                display: flex;
+            }
+            .lang-toggle button {
+                border: none;
+                background: transparent;
+                padding: 8px 16px;
+                font-size: 13px;
+                font-weight: 700;
+                cursor: pointer;
+                font-family: 'Playfair Display', serif;
+                color: #1f2839;
+                transition: all 0.3s ease;
+                letter-spacing: 1px;
+            }
+            .lang-toggle button.active {
+                background: #b69d74;
+                color: #fff;
+            }
+            .lang-toggle button:hover:not(.active) {
+                background: #f5f0e8;
+            }
+            @media (max-width: 767px) {
+                .toolbar-row {
+                    flex-direction: column;
+                }
+                .filter-select {
+                    width: 100%;
+                    min-width: unset;
+                }
+                .lang-toggle {
+                    top: 80px;
+                    right: 10px;
+                }
+                .lang-toggle button {
+                    padding: 6px 12px;
+                    font-size: 11px;
+                }
             }
         </style>
     </head>
@@ -177,7 +271,7 @@
 
 
                                                 
-                                                        <li class="menu-item-has-children"><a href="articles.html">Articles</a>
+                                                        <li class="menu-item-has-children"><a href="articles.html">Publications</a>
                                                     <ul class="sub-menu">
                                                         <li><a href="articles.html?category=indo-japan">Indo Japan Corridor</a></li>
                                                         <li><a href="articles.html?category=indo-us">Indo US Corridor</a></li>
@@ -203,137 +297,56 @@
         </div>
         <!--Full width header End-->
 
+        <!-- Language Toggle -->
+        <div class="lang-toggle" id="lang-toggle">
+            <button data-lang="en" class="active">EN</button>
+            <button data-lang="jp">JP</button>
+        </div>
+
         <!-- Breadcrumbs Section Start -->
         <div class="rs-breadcrumbs innerbg7">
             <div class="container">
                 <div class="breadcrumbs-inner text-center">
-                    <h1 class="breadcrumbs-title white-color" id="breadcrumbs-page-title">Articles</h1>
+                    <h1 class="breadcrumbs-title white-color" id="breadcrumbs-page-title">Publications</h1>
                     <ul class="breadcrumbs-meta" id="breadcrumbs-list">
                         <li><a href="index.html">Home</a></li>
-                        <li>Articles</li>
+                        <li>Publications</li>
                     </ul>
                 </div>
             </div>
         </div>
         <!-- Breadcrumbs Section End -->
 
-        <!-- Articles Toolbar: Search -->
+        <!-- Articles Toolbar: Search + Filters -->
         <div class="articles-toolbar">
             <div class="container">
-                <div class="articles-search-wrap">
-                    <input type="text" id="article-search" placeholder="Search articles by title or keyword...">
-                    <span class="search-icon"><i class="fa fa-search"></i></span>
+                <div class="toolbar-row">
+                    <div class="articles-search-wrap">
+                        <input type="text" id="article-search" placeholder="Search publications by title or keyword...">
+                        <span class="search-icon"><i class="fa fa-search"></i></span>
+                    </div>
+                    <select class="filter-select" id="filter-sort">
+                        <option value="newest">Newest First</option>
+                        <option value="oldest">Oldest First</option>
+                    </select>
+                    <select class="filter-select" id="filter-category">
+                        <option value="all">All Categories</option>
+                    </select>
                 </div>
             </div>
         </div>
         <!-- Articles Toolbar End -->
 
         <!-- Blog Section Start -->
-        <div class="rs-blog inner modify gray-bg pt-120 pb-90 md-pt-80 md-pb-50">
+        <div class="rs-blog inner modify gray-bg pt-40 pb-90 md-pt-80 md-pb-50">
             <div class="container">
-                <div class="row">
-                    <div class="col-lg-4 col-md-6 mb-30" data-category="indo-japan">
-                        <div class="blog-item">
-                            <div class="blog-image">
-                                <img src="images/article/Article1.jpg" alt="Blog Image">
-                            </div>
-                            <div class="text-bottom">
-                                <h3 class="title2"><a href="Enhancing information security an overview of rbi's directions.html">Enhancing information security: an overview of RBI's directions</a></h3>
-                                <ul class="blog-meta">
-                                    <li>November 2, 2024</li>
-                                    <li>Admin</li>
-                                  <!--  <li><a href="#">Traffic Tikets</a></li>-->
-                                </ul>
-                                <div class="blog-desc" align="justify">The landscape of financial regulations is ever-evolving, driven by the need to adapt to emerging threats and technological advancements...</div>
-                                <div class="blog-btn mt-17"><a href="Enhancing information security an overview of rbi's directions.html" class="readon2">Read More</a></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-md-6 mb-30" data-category="indo-us">
-                        <div class="blog-item">
-                            <div class="blog-image">
-                                <img src="images/article/Article2.jpg" alt="Blog Image">
-                            </div>
-                            <div class="text-bottom">
-                                <h3 class="title2"><a href="Guidelines for prevention and regulation of dark patterns, 2023.html">Guidelines for prevention and regulation of dark patterns, 2023</a></h3>
-                                <ul class="blog-meta">
-                                    <li>July 28, 2024</li>
-                                    <li>Admin</li>
-                                </ul>
-                                <div class="blog-desc" align="justify">In the rapidly evolving landscape of the digital age, where online commerce has become an integral ...</div>
-                                <div class="blog-btn mt-17"><a href="Guidelines for prevention and regulation of dark patterns, 2023.html" class="readon2">Read More</a></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-md-6 mb-30" data-category="indo-europe">
-                        <div class="blog-item">
-                            <div class="blog-image">
-                                <img src="images/article/Article3.jpg" alt="Blog Image">
-                            </div>
-                            <div class="text-bottom">
-                                <h3 class="title2"><a href="Strengthening creators' rights unveiling the john doe order.html">Strengthening creators' rights: unveiling the john doe order</a></h3>
-                                <ul class="blog-meta">
-                                    <li>April 12, 2024</li>
-                                    <li>Admin</li>
-                                </ul>
-                                <div class="blog-desc" align="justify">The John Doe order is like a shield for creators' intellectual property rights, especially in cases where the infringers involved are unidentified...</div>
-                                <div class="blog-btn mt-17"><a href="Strengthening creators' rights unveiling the john doe order.html" class="readon2">Read More</a></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-md-6 mb-30" data-category="indo-japan">
-                        <div class="blog-item">
-                            <div class="blog-image">
-                                <img src="images/article/Article4.jpg" alt="Blog Image">
-                            </div>
-                            <div class="text-bottom">
-                                <h3 class="title2"><a href="Draft framework for fintech self - regulatory organizations comprehensive overview.html">Draft framework for fintech self - regulatory organizations: comprehensive overview</a></h3>
-                                <ul class="blog-meta">
-                                    <li>February 1, 2024</li>
-                                    <li>Admin</li>
-                                </ul>
-                                <div class="blog-desc" align="justify">In recent years, the financial technology ("FinTech") sector has undergone remarkable expansion, reshaping the landscape of financial...</div>
-                                <div class="blog-btn mt-17"><a href="Draft framework for fintech self - regulatory organizations comprehensive overview.html" class="readon2">Read More</a></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-md-6 mb-30" data-category="indo-us">
-                        <div class="blog-item">
-                            <div class="blog-image">
-                                <img src="images/article/Article5.jpg" alt="Blog Image">
-                            </div>
-                            <div class="text-bottom">
-                                <h3 class="title2"><a href="Digital rupee(e₹)as india’s central bank digital currency.html">Digital rupee(e₹)as india’s central bank digital currency</a></h3>
-                                <ul class="blog-meta">
-                                    <li>November 23, 2023</li>
-                                    <li>Admin</li>
-                                </ul>
-                                <div class="blog-desc" align="justify">The Reserve Bank of India (RBI) unveiled its plans for a Digital Rupee (e₹) through a series of press releases in October and November 2022. On October 7, 2022; the RBI issued a Conceptual Note on the Central Bank Digital Currency (CBDC)...</div>
-                                <div class="blog-btn mt-17"><a href="Digital rupee(e₹)as india’s central bank digital currency.html" class="readon2">Read More</a></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-md-6 mb-30" data-category="indo-europe">
-                        <div class="blog-item">
-                            <div class="blog-image">
-                                <img src="images/article/Article6.jpg" alt="Blog Image">
-                            </div>
-                            <div class="text-bottom">
-                                <h3 class="title2"><a href="Navigating jurisdictional intersection in india's data privacy regime.html">Navigating Jurisdictional Intersection in India's Data Privacy Regime </a></h3>
-                                <ul class="blog-meta">
-                                    <li>August 17, 2023</li>
-                                    <li>Admin</li>
-                                </ul>
-                                <div class="blog-desc" align="justify">Due to technological advancements in the digital era and the virtualization of everything, the need for safeguarding personal data became essential. TheApex Court’s ruling in Justice K.S. Puttaswamy (Retd.) & Anr. vs. Union of India & Ors...</div>
-                                <div class="blog-btn mt-17"><a href="Navigating jurisdictional intersection in india's data privacy regime.html" class="readon2">Read More</a></div>
-                            </div>
-                        </div>
-                    </div>
+                <div class="row" id="articles-grid">
+                    <!-- Articles rendered dynamically -->
                 </div>
                 <!-- No Results Message -->
                 <div class="no-results-msg" id="no-results">
                     <i class="fa fa-search"></i>
-                    No articles found matching your criteria.
+                    <span id="no-results-text">No publications found matching your criteria.</span>
                 </div>
             </div>
         </div>
@@ -350,7 +363,7 @@
                                 <div class="footer-info">
                     <a class="btn btn-link" href="about-us.html">About Us</a>
                     <a class="btn btn-link" href="contact-us.html">Contact Us</a>
-					<a class="btn btn-link" href="articles.html">Articles</a>
+					<a class="btn btn-link" href="articles.html">Publications</a>
                     <a class="btn btn-link" href="terms-and-conditions.html">Terms & Condition</a>
                     <a class="btn btn-link" href="privacy-policy.html">Privacy Policy</a>  
 
@@ -455,79 +468,147 @@ Shahid Bhagat Singh Rd, Between RBI & GPO, Ballard Estate, Fort, Mumbai, Maharas
         <script src="js/contact.form.js"></script>
         <!-- main js -->
         <script src="js/main.js"></script>
+        <!-- Articles Data -->
+        <script src="js/articles-data.js"></script>
 
-        <!-- Articles Search & Filter Script -->
+        <!-- Articles Dynamic Render Script -->
         <script>
         (function($) {
             'use strict';
 
-            // Category slug to display name mapping
-            var categoryNames = {
-                'indo-japan': 'Indo Japan Corridor',
-                'indo-us': 'Indo US Corridor',
-                'indo-europe': 'Indo Europe Corridor'
-            };
+            var lang = ArticlesStore.getLang();
+            var currentCatFilter = 'all';
+            var currentSort = 'newest';
 
             $(document).ready(function() {
-                var $articles = $('.rs-blog .row > [data-category]');
-                var $searchInput = $('#article-search');
-                var $noResults = $('#no-results');
-                var currentFilter = 'all';
-
-                // Read URL parameter on page load
                 var urlParams = new URLSearchParams(window.location.search);
                 var categoryParam = urlParams.get('category');
-                if (categoryParam && categoryNames[categoryParam]) {
-                    currentFilter = categoryParam;
-                    // Update breadcrumb to show: Home -> Articles -> Category Name
-                    var displayName = categoryNames[categoryParam];
-                    $('#breadcrumbs-page-title').text(displayName);
-                    $('#breadcrumbs-list').html(
-                        '<li><a href="index.html">Home</a></li>' +
-                        '<li><a href="articles.html">Articles</a></li>' +
-                        '<li>' + displayName + '</li>'
-                    );
+                if (categoryParam && ArticlesStore.CATEGORIES[categoryParam]) {
+                    currentCatFilter = categoryParam;
                 }
 
-                function filterArticles() {
-                    var searchTerm = $searchInput.val().toLowerCase().trim();
-                    var visibleCount = 0;
-
-                    $articles.each(function() {
-                        var $article = $(this);
-                        var category = $article.data('category');
-                        var title = $article.find('.title2').text().toLowerCase();
-                        var desc = $article.find('.blog-desc').text().toLowerCase();
-
-                        var matchesCategory = (currentFilter === 'all' || category === currentFilter);
-                        var matchesSearch = (searchTerm === '' || title.indexOf(searchTerm) !== -1 || desc.indexOf(searchTerm) !== -1);
-
-                        if (matchesCategory && matchesSearch) {
-                            $article.show();
-                            visibleCount++;
-                        } else {
-                            $article.hide();
-                        }
+                if (currentCatFilter === 'indo-japan') {
+                    $('#lang-toggle').addClass('visible');
+                    updateLangToggle(lang);
+                    $('#lang-toggle').on('click', 'button', function() {
+                        lang = $(this).data('lang');
+                        ArticlesStore.setLang(lang);
+                        updateLangToggle(lang);
+                        renderPage(lang);
                     });
+                } else {
+                    lang = 'en';
+                }
 
-                    // Show/hide no results message
-                    if (visibleCount === 0) {
-                        $noResults.show();
-                    } else {
-                        $noResults.hide();
+                // Populate category dropdown
+                var cats = ArticlesStore.CATEGORIES;
+                var $catSelect = $('#filter-category');
+                for (var key in cats) {
+                    if (cats.hasOwnProperty(key)) {
+                        $catSelect.append('<option value="' + key + '">' + cats[key].en + '</option>');
                     }
                 }
+                if (currentCatFilter !== 'all') { $catSelect.val(currentCatFilter); }
 
-                // Search input
-                $searchInput.on('input', function() {
-                    filterArticles();
-                });
+                renderPage(lang);
 
-                // Run initial filter (handles URL params)
-                filterArticles();
+                $('#article-search').on('input', function() { applyFilters(lang); });
+                $('#filter-sort').on('change', function() { currentSort = $(this).val(); renderPage(lang); });
+                $('#filter-category').on('change', function() { currentCatFilter = $(this).val(); renderPage(lang); });
             });
+
+            function updateLangToggle(l) {
+                $('#lang-toggle button').removeClass('active');
+                $('#lang-toggle button[data-lang="' + l + '"]').addClass('active');
+            }
+
+            function renderPage(l) {
+                updateBreadcrumbs(l);
+                $('#article-search').attr('placeholder', ArticlesStore.getLabel('searchPlaceholder', l));
+                renderArticleCards(l);
+                applyFilters(l);
+            }
+
+            function updateBreadcrumbs(l) {
+                var homeLabel = ArticlesStore.getLabel('home', l);
+                var pubLabel = ArticlesStore.getLabel('articles', l);
+                if (currentCatFilter !== 'all') {
+                    var catName = ArticlesStore.getCategoryName(currentCatFilter, l);
+                    $('#breadcrumbs-page-title').text(catName);
+                    $('#breadcrumbs-list').html(
+                        '<li><a href="index.html">' + homeLabel + '</a></li>' +
+                        '<li><a href="articles.html">' + pubLabel + '</a></li>' +
+                        '<li>' + catName + '</li>'
+                    );
+                } else {
+                    $('#breadcrumbs-page-title').text(pubLabel);
+                    $('#breadcrumbs-list').html(
+                        '<li><a href="index.html">' + homeLabel + '</a></li>' +
+                        '<li>' + pubLabel + '</li>'
+                    );
+                }
+            }
+
+            function renderArticleCards(l) {
+                var articles = ArticlesStore.getAll();
+                if (currentSort === 'oldest') {
+                    articles.sort(function(a, b) { return new Date(a.date) - new Date(b.date); });
+                } else {
+                    articles.sort(function(a, b) { return new Date(b.date) - new Date(a.date); });
+                }
+                var $grid = $('#articles-grid');
+                $grid.empty();
+                var readMoreLabel = ArticlesStore.getLabel('readMore', l);
+
+                articles.forEach(function(a) {
+                    var content = (a.content[l] && a.content[l].title) ? a.content[l] : a.content.en;
+                    var viewUrl;
+                    if (a.legacySlug) {
+                        viewUrl = a.legacySlug;
+                    } else {
+                        var slug = (a.content.en.title || '').toLowerCase()
+                            .replace(/[^a-z0-9\s-]/g, '').replace(/\s+/g, '-').replace(/-+/g, '-').replace(/^-|-$/g, '');
+                        viewUrl = 'article-view.html?id=' + a.id + '&title=' + slug;
+                    }
+                    var dateStr = ArticlesStore.formatDate(a.date, l);
+                    var imgSrc = a.image || 'images/favicon.png';
+
+                    var card = '<div class="col-lg-4 col-md-6 mb-30" data-category="' + a.category + '">' +
+                        '<div class="blog-item">' +
+                        '<div class="blog-image"><img src="' + imgSrc + '" alt="Blog Image"></div>' +
+                        '<div class="text-bottom">' +
+                        '<h3 class="title2"><a href="' + viewUrl + '">' + (content.title || '') + '</a></h3>' +
+                        '<ul class="blog-meta"><li>' + dateStr + '</li><li>' + (a.author || 'Admin') + '</li></ul>' +
+                        '<div class="blog-desc" align="justify">' + (content.description || '') + '</div>' +
+                        '<div class="blog-btn mt-17"><a href="' + viewUrl + '" class="readon2">' + readMoreLabel + '</a></div>' +
+                        '</div></div></div>';
+                    $grid.append(card);
+                });
+            }
+
+            function applyFilters(l) {
+                var searchTerm = $('#article-search').val().toLowerCase().trim();
+                var visibleCount = 0;
+                $('#articles-grid > [data-category]').each(function() {
+                    var $el = $(this);
+                    var cat = $el.data('category');
+                    var title = $el.find('.title2').text().toLowerCase();
+                    var desc = $el.find('.blog-desc').text().toLowerCase();
+                    var matchCat = (currentCatFilter === 'all' || cat === currentCatFilter);
+                    var matchSearch = (!searchTerm || title.indexOf(searchTerm) !== -1 || desc.indexOf(searchTerm) !== -1);
+                    if (matchCat && matchSearch) { $el.show(); visibleCount++; }
+                    else { $el.hide(); }
+                });
+                if (visibleCount === 0) {
+                    $('#no-results-text').text(ArticlesStore.getLabel('noResults', l));
+                    $('#no-results').show();
+                } else {
+                    $('#no-results').hide();
+                }
+            }
         })(jQuery);
         </script>
     </body>
 
 </html>
+

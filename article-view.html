@@ -1,9 +1,10 @@
 <!DOCTYPE html>
-<html lang="zxx">
+<html lang="en">
+    
 <head>
         <!-- meta tag -->
         <meta charset="utf-8">
-        <title>Taxation ||  Dhwaj &amp; Associates</title>
+        <title>Publication  ||  Dhwaj &amp; Associates</title>
         <meta name="description" content="">
         <!-- responsive tag -->
         <meta http-equiv="x-ua-compatible" content="ie=edge">
@@ -46,6 +47,105 @@
             <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
             <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
         <![endif]-->
+        <style>
+            /* Language Toggle */
+            .lang-toggle {
+                position: fixed;
+                top: 100px;
+                right: 20px;
+                z-index: 9999;
+                display: none;
+                background: #ffffff;
+                border-radius: 50px;
+                box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+                overflow: hidden;
+                border: 2px solid #b69d74;
+            }
+            .lang-toggle.visible {
+                display: flex;
+            }
+            .lang-toggle button {
+                border: none;
+                background: transparent;
+                padding: 8px 16px;
+                font-size: 13px;
+                font-weight: 700;
+                cursor: pointer;
+                font-family: 'Playfair Display', serif;
+                color: #1f2839;
+                transition: all 0.3s ease;
+                letter-spacing: 1px;
+            }
+            .lang-toggle button.active {
+                background: #b69d74;
+                color: #fff;
+            }
+            .lang-toggle button:hover:not(.active) {
+                background: #f5f0e8;
+            }
+            .back-link {
+                display: inline-block;
+                margin-bottom: 20px;
+                color: #b69d74;
+                font-weight: 600;
+                font-family: 'Playfair Display', serif;
+                transition: color 0.3s;
+            }
+            .back-link:hover {
+                color: #1f2839;
+            }
+            @media (max-width: 767px) {
+                .lang-toggle {
+                    top: 80px;
+                    right: 10px;
+                }
+                .lang-toggle button {
+                    padding: 6px 12px;
+                    font-size: 11px;
+                }
+            }
+            /* Dynamic article content formatting */
+            #article-body ul,
+            #article-body .list-disc {
+                list-style-type: disc;
+                padding-left: 28px;
+                margin-bottom: 16px;
+            }
+            #article-body ol {
+                list-style-type: decimal;
+                padding-left: 28px;
+                margin-bottom: 16px;
+            }
+            #article-body li {
+                margin-bottom: 8px;
+                line-height: 1.8;
+            }
+            #article-body h1, #article-body h2, #article-body h3 {
+                margin-top: 24px;
+                margin-bottom: 12px;
+            }
+            #article-body p {
+                text-align: justify;
+                line-height: 1.8;
+                margin-bottom: 14px;
+            }
+            #article-body a {
+                color: #b69d74;
+            }
+            #article-body img {
+                max-width: 100%;
+                height: auto;
+                margin: 12px 0;
+            }
+            #article-body blockquote {
+                border-left: 4px solid #b69d74;
+                padding: 14px 20px;
+                margin: 20px 0;
+                background: #f9f7f3;
+                font-style: italic;
+                color: #555;
+            }
+        </style>
     </head>
     <body>
         
@@ -55,9 +155,14 @@
         </div>
         <!--End preloader here -->
 
+        <!-- Language Toggle -->
+        <div class="lang-toggle" id="lang-toggle">
+            <button data-lang="en" class="active">EN</button>
+            <button data-lang="jp">JP</button>
+        </div>
+
         <!--Full width header Start-->
         <div class="full-width-header header-transparent">
-                        
             <!--Header Start-->
             <header id="rs-header" class="rs-header">
                 <!-- Menu Start -->
@@ -80,52 +185,49 @@
                                         <nav class="rs-menu">
                                             <ul class="nav-menu">
                                          <li> <a href="index.html">Home</a>    </li>
-
                                          <li><a href="about-us.html">About Us</a></li>
-
-                                        <li class="rs-mega-menu mega-rs current-menu-item current_page_item menu-item-has-children"> <a href="#">Practice Areas</a>
+                                        <li class="rs-mega-menu mega-rs  current_page_item menu-item-has-children"> <a href="#">Practice Areas</a>
                                                     <ul class="mega-menu"> 
                                                         <li class="mega-menu-container">
                                                             <div class="mega-menu-innner">
                                                                 <div class="single-megamenu">
                                                                     <ul class="sub-menu">
-										<li><a href="corporate-commercial-foreign-direct-investment-fdi.html">Corporate & Commercial / Foreign Direct 				 								Investment (FDI)</a></li>
-										<li><a href="telecommunication.html">Telecommunication</a></li>
-										<li><a href="labour-employment-laws.html">Labour & Employment Law </a></li>
-										<li class="active"><a href="taxation.html">Taxation</a></li>
-										<li><a href="intellectual-property.html">Intellectual Property</a></li>
-										<li><a href="trust-private-clients.html">Trust & Private Clients</a></li>
-                                        <li class="last-item" ><a href="real-estate.html" class="dropdown-item">Real Estate</a> </li>
+								<li><a href="corporate-commercial-foreign-direct-investment-fdi.html">Corporate & Commercial / Foreign Direct 				 								Investment (FDI)</a></li>
+								<li><a href="telecommunication.html">Telecommunication</a></li>
+								<li><a href="labour-employment-laws.html">Labour & Employment Law </a></li>
+								<li><a href="taxation.html">Taxation</a></li>
+								<li><a href="intellectual-property.html">Intellectual Property</a></li>
+								<li><a href="trust-private-clients.html">Trust & Private Clients</a></li>
+                                        <li class="last-item"><a href="real-estate.html" class="dropdown-item">Real Estate</a> </li>
                                                                     </ul>
                                                                 </div>
                                                                 <div class="single-megamenu">
                                                                     <ul class="sub-menu last-sub-menu">
-										<li><a href="fashion-law.html">Fashion law</a></li>							
                                         <li><a href="dispute-resolution.html">Dispute Resolution</a></li>
-										<li><a href="accounting-financial.html">Accounting & Financial</a></li>
-										<li><a href="sports-entertainment.html">Sports & Entertainment</a></li>
-										<li><a href="technology.html">Technology</a></li>
-										<li><a href="start-ups.html">Start Ups</a></li>
-										<li><a href="data-protection-privacy.html">Data Protection & Privacy</a></li>
-										
-                                        <li class="last-item"><a href="artificial-intelligence.html">Artificial Intelligence</a> </li>
+								<li><a href="accounting-financial.html">Accounting & Financial</a></li>
+								<li><a href="sports-entertainment.html">Sports & Entertainment</a></li>
+								<li><a href="technology.html">Technology</a></li>
+								<li><a href="start-ups.html">Start Ups</a></li>
+								<li><a href="data-protection-privacy.html">Data Protection & Privacy</a></li>
+								
+                                        <li class="last-item "><a href="artificial-intelligence.html">Artificial Intelligence</a> </li>
                                                                     </ul>
                                                                 </div>
                                                             </div>
                                                         </li>
                                                     </ul> <!-- //.mega-menu -->
                                               </li>
-
-
-                                                <li class="menu-item-has-children"><a href="articles.html">Publications</a>
+                                                
+                                                        <li class="menu-item-has-children"><a href="articles.html">Publications</a>
                                                     <ul class="sub-menu">
                                                         <li><a href="articles.html?category=indo-japan">Indo Japan Corridor</a></li>
                                                         <li><a href="articles.html?category=indo-us">Indo US Corridor</a></li>
                                                         <li><a href="articles.html?category=indo-europe">Indo Europe Corridor</a></li>
                                                     </ul>
                                                 </li>
+                                                       
                                               <li><a href="join-us.html">Join Us</a></li>
-											<li><a href="contact-us.html">Contact Us</a></li>
+										<li><a href="contact-us.html">Contact</a></li>
                                             </ul> <!-- //.nav-menu -->
                                         </nav>
                                     </div> <!-- //.main-menu -->   
@@ -135,113 +237,45 @@
                     </div>
                 </div>
                 <!-- Menu End -->
-
             </header>
             <!--Header End-->
         </div>
         <!--Full width header End-->
 
         <!-- Breadcrumbs Section Start -->
-        <div class="rs-breadcrumbs innerbg3">
+        <div class="rs-breadcrumbs innerbg4">
             <div class="container">
                 <div class="breadcrumbs-inner text-center">
-                    <h1 class="breadcrumbs-title white-color">Taxation </h1>
-                    <ul class="breadcrumbs-meta">
+                    <h1 class="breadcrumbs-title white-color" id="article-page-title">Article</h1>
+                    <ul class="breadcrumbs-meta" id="article-breadcrumbs">
                         <li><a href="index.html">Home</a></li>
-                        <li><a href="#">Practice Areas</a></li>
-                        <li>Taxation </li>
+                        <li><a href="articles.html">Publications</a></li>
+                        <li id="breadcrumb-article-title">Article</li>
                     </ul>
                 </div>
             </div>
         </div>
         <!-- Breadcrumbs Section End -->
 
-        <!-- Practice Single Section Start -->
-        <div class="rs-practice-single pt-120 pb-0 md-pt-80 md-pb-80">
+        <!-- Blog Section Start -->
+        <div class="rs-blog single gray-bg pt-120 pb-120 md-pt-80 md-pb-80">
             <div class="container">
                 <div class="row">
-                    <div class="col-lg-6 order-last md-mb-35">
-                        <div class="practice-sidebar">
-                           
-                          
-                            <div class="certification sidebar-common">
-                                <img src="images/practice/tax.jpg" alt="">
+                    <div class="col-md-12">
+                        <div class="white-bg mb-60" id="article-container">
+                            <!-- Article content will be injected here -->
+                            <div id="article-image-wrap"></div>
+                            <div class="content-wrap" id="article-content-wrap">
+                                <div id="article-body"></div>
+                                <div class="tags-part" id="article-disclaimer" style="margin-top: 30px;"></div>
                             </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-6 pr-45 md-pr-15">
-                        <div class="mian-content">
-                            
-                            <p class="desc mt-10" align="justify">At Dhwaj & Associates, our Tax Team is renowned for providing holistic tax solutions tailored to the unique challenges faced by businesses operating in and with India. We offer a comprehensive suite of services encompassing advisory, litigation, and compliance support across various areas of taxation. Our dedicated team of domain experts handles every aspect of taxation, ensuring that our clients receive specialized assistance whether they are dealing with direct or indirect tax matters.
-</p>	
-								<p class="desc mt-10" align="justify">In the realm of <b>direct taxation</b>, we provide strategic advice on corporate income tax, transfer pricing, and other relevant areas. Our focus is on tax planning and compliance, helping businesses navigate the complexities of the tax landscape while optimizing their tax positions. We also represent our clients before authorities at higher levels, advocating for their interests and ensuring compliance with statutory obligations.</p>
-							
-                         
-							
-							
-                             </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-				
-				<div class="rs-practice-single pt-0 pb-40 md-pt-80 md-pb-80">
-            <div class="container">
-                <div class="row">
-                   
-                    <div class="col-lg-12 pr-45 md-pr-15">
-                        <div class="mian-content">
-						   <p class="desc mt-10" align="justify">For <b>indirect taxation</b>, our team is well-versed in the intricacies of Goods and Service Tax (GST), customs duties, and service tax regulations. We assist clients in understanding their obligations under these laws and provide guidance on compliance requirements, ensuring that businesses operate within the legal framework while minimizing tax liabilities.</p>
-                            
-                            <p class="desc mt-10" align="justify">Our comprehensive <b>auditing services</b> include statutory audits, management audits, internal and concurrent audits, and special audits under Section 142(2A) of the Income Tax Act. Through these services, we help clients identify potential issues, enhance operational efficiency, and ensure compliance with regulatory requirements.
-</p>
-							
-                            <p class="desc mt-10" align="justify">In addition to auditing, our <b>taxation services</b> encompass a wide range of functions, including planning, compliance, and representation. We provide expert guidance on corporate taxation matters, ensuring that our clients understand their rights and responsibilities while effectively managing their tax affairs.</p>
-							
-							<p class="desc mt-10" align="justify">Our firm also offers valuable <b>financial services</b>, including business and share valuations, tax due diligence, and due diligence. These services are crucial for clients looking to make informed business decisions, whether they are engaging in mergers and acquisitions, raising capital, or assessing potential investments.</p>
-							
-							<p class="desc mt-10" align="justify">Furthermore, we provide <b>advisory and liaisoning services</b> that include a thorough review of systems and procedures, as well as forensic auditing. This holistic approach ensures that clients have robust internal controls and processes in place to mitigate risks and comply with regulatory requirements.</p>
-							
-							
-							
-
-                             </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-				
-				
-				
-				
-				
-				
-				<div class="rs-practice-single pb-60 md-pt-80 md-pb-80">
-            <div class="container">
-                <div class="row">
-                    
-                    <div class="col-lg-12 pr-45 md-pr-15">
-                        <div class="mian-content">
-                            
-                            <div class="choose-wrap gray-bg mb-41">
-                                <h3 class="title-text">Our Approach</h3>
-                                <div class="desc mb-30" align="justify">At Dhwaj & Associates, our commitment to excellence in taxation services sets us apart. We understand the importance of proactive tax management and are dedicated to providing our clients with the insights and support they need to thrive in a complex tax environment. For any further questions about how we can support your legal needs, please contact us  at    <a href="mailto:info@dalaw.in">info@dalaw.in</a></div>
-                                
-                            </div>
-                         
-                            
-                            
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-				
-				
-            </div>
-        </div>
-        <!-- Practice Single Section End -->
-        
+        <!-- Blog Section End -->
+                
         <!-- Footer Start -->
         <footer id="rs-footer" class="rs-footer">
             <div class="footer-top">
@@ -256,8 +290,6 @@
 					<a class="btn btn-link" href="articles.html">Publications</a>
                     <a class="btn btn-link" href="terms-and-conditions.html">Terms & Condition</a>
                     <a class="btn btn-link" href="privacy-policy.html">Privacy Policy</a>  
-
-
                                 </div>                                
                                 <ul class="social-links">
                                     <li><a href="https://www.facebook.com/people/Dhwaj-Associates/100065132943999/?mibextid=LQQJ4d&rdid=HBkkI1ydMZIQikEv&share_url=https%3A%2F%2Fwww.facebook.com%2Fshare%2FGP1tenqRWwdjMpBp%2F%3Fmibextid%3DLQQJ4d"><i class="fa fa-facebook"></i></a></li>
@@ -270,8 +302,8 @@
                             
                             <ul class="footer-address">
                                 <li><i class="fa fa-globe"></i><span>Noida (Delhi NCR) : 311, 3rd Floor, Tower-C, Logix Cyber Park, Sector 62, Noida, 201301 (India).</span></li>   
-								<li><i class="fa fa-globe"></i><span>Bengaluru : Aqua Forte, 12 Kensington Road, Ulsoor , Bengaluru 560042 (India).</span></li>
-								<li><i class="fa fa-globe"></i><span>Mumbai : Office No 12 & 13,
+								<li><i class="fa fa-globe"></i><span>Bengaluru  : Aqua Forte, 12 Kensington Road, Ulsoor , Bengaluru 560042 (India).</span></li>
+								<li><i class="fa fa-globe"></i><span>Mumbai  : Office No 12 & 13,
 2nd floor Mitha Mansion,
 Shahid Bhagat Singh Rd, Between RBI & GPO, Ballard Estate, Fort, Mumbai, Maharashtra 400001</span></li>	
                                 <li><i class="fa fa-phone"></i><a href="">+91 9910318761, 0120 - 4337999</a></li>
@@ -289,7 +321,7 @@ Shahid Bhagat Singh Rd, Between RBI & GPO, Ballard Estate, Fort, Mumbai, Maharas
             <div class="footer-bottom">
                 <div class="container">                    
                     <div class="copyright text-center">
-                        <p>&copy; 2024 All Rights Reserved by <a href="https://dalaw.in/">Dhwaj & Associates</a> || Design By <a href="https://isdag.com/">iSDAG</a></p>
+                         <p>&copy; 2024 All Rights Reserved by <a href="https://dalaw.in/">Dhwaj & Associates</a> || Design By <a href="https://isdag.com/">iSDAG</a></p>
                     </div>
                 </div>
             </div>
@@ -358,5 +390,110 @@ Shahid Bhagat Singh Rd, Between RBI & GPO, Ballard Estate, Fort, Mumbai, Maharas
         <script src="js/contact.form.js"></script>
         <!-- main js -->
         <script src="js/main.js"></script>
+        <!-- Articles Data -->
+        <script src="js/articles-data.js"></script>
+
+        <!-- Article View Script -->
+        <script>
+        (function($) {
+            'use strict';
+
+            $(document).ready(function() {
+                var lang = ArticlesStore.getLang();
+
+                var urlParams = new URLSearchParams(window.location.search);
+                var articleId = urlParams.get('id');
+
+                if (!articleId) {
+                    showNotFound(lang);
+                    return;
+                }
+
+                var article = ArticlesStore.getById(articleId);
+                if (!article) {
+                    showNotFound(lang);
+                    return;
+                }
+
+                // Only show lang toggle for indo-japan category
+                if (article.category === 'indo-japan') {
+                    $('#lang-toggle').addClass('visible');
+                    updateLangToggle(lang);
+
+                    $('#lang-toggle button').on('click', function() {
+                        lang = $(this).data('lang');
+                        ArticlesStore.setLang(lang);
+                        updateLangToggle(lang);
+                        renderArticle(article, lang);
+                    });
+                } else {
+                    lang = 'en'; // non indo-japan always EN
+                }
+
+                renderArticle(article, lang);
+            });
+
+            function updateLangToggle(lang) {
+                $('#lang-toggle button').removeClass('active');
+                $('#lang-toggle button[data-lang="' + lang + '"]').addClass('active');
+            }
+
+            function renderArticle(article, lang) {
+                var content = article.content[lang] || article.content.en;
+                var title = content.title || '';
+
+                // Update page title
+                document.title = title + '  ||  Dhwaj & Associates';
+
+                // Breadcrumbs
+                var homeLabel = ArticlesStore.getLabel('home', lang);
+                var pubLabel = ArticlesStore.getLabel('articles', lang);
+                $('#article-page-title').text(title);
+                $('#article-breadcrumbs').html(
+                    '<li><a href="index.html">' + homeLabel + '</a></li>' +
+                    '<li><a href="articles.html">' + pubLabel + '</a></li>' +
+                    '<li>' + title + '</li>'
+                );
+
+                // Image
+                if (article.image) {
+                    $('#article-image-wrap').html('<img src="' + article.image + '" alt="" style="width:100%;">');
+                }
+
+                // Body — use the same formatting as existing static articles
+                if (content.body) {
+                    $('#article-body').html(content.body);
+                } else {
+                    // Legacy article — show description + link
+                    $('#article-body').html(
+                        '<p class="desc" align="justify">' + (content.description || '') + '</p>' +
+                        (article.legacySlug ? '<p><a href="' + article.legacySlug + '" style="color:#b69d74;font-weight:600;">' + ArticlesStore.getLabel('readMore', lang) + ' \u2192</a></p>' : '')
+                    );
+                }
+
+                // Disclaimer
+                var disclaimerLabel = ArticlesStore.getLabel('disclaimer', lang);
+                $('#article-disclaimer').html(disclaimerLabel + ' <a href="mailto:info@dalaw.in">info@dalaw.in</a>');
+            }
+
+            function showNotFound(lang) {
+                var homeLabel = ArticlesStore.getLabel('home', lang);
+                var pubLabel = ArticlesStore.getLabel('articles', lang);
+                $('#article-page-title').text('Publication Not Found');
+                $('#article-breadcrumbs').html(
+                    '<li><a href="index.html">' + homeLabel + '</a></li>' +
+                    '<li><a href="articles.html">' + pubLabel + '</a></li>'
+                );
+                $('#article-content-wrap').html(
+                    '<div style="text-align:center;padding:60px 20px;">' +
+                    '<i class="fa fa-exclamation-triangle" style="font-size:48px;color:#ddd;display:block;margin-bottom:15px;"></i>' +
+                    '<p style="font-size:18px;color:#999;">The publication you are looking for could not be found.</p>' +
+                    '<a href="articles.html" class="readon2">' + pubLabel + '</a>' +
+                    '</div>'
+                );
+            }
+        })(jQuery);
+        </script>
     </body>
+
 </html>

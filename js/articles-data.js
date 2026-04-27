@@ -9,7 +9,7 @@ var ArticlesStore = (function () {
 
     var STORAGE_KEY = 'da_articles';
 
-    // ── Seed data (existing articles) ────────────────────────────────
+    // ── Seed data (existing static articles) ─────────────────────────
     var SEED_ARTICLES = [
         {
             id: 'enhancing-information-security',
@@ -181,7 +181,6 @@ var ArticlesStore = (function () {
 
     function addArticle(article) {
         var dynamic = _load();
-        // Generate id if missing
         if (!article.id) {
             article.id = 'article-' + Date.now();
         }
@@ -201,7 +200,6 @@ var ArticlesStore = (function () {
             }
         }
         if (!found) {
-            // If it's a seed article being edited, copy to dynamic
             updatedArticle.id = id;
             dynamic.push(updatedArticle);
         }
@@ -212,10 +210,6 @@ var ArticlesStore = (function () {
         var dynamic = _load();
         dynamic = dynamic.filter(function (a) { return a.id !== id; });
         _save(dynamic);
-    }
-
-    function getDynamicOnly() {
-        return _load();
     }
 
     function formatDate(dateStr, lang) {
@@ -232,6 +226,7 @@ var ArticlesStore = (function () {
 
     // ── Category helpers ─────────────────────────────────────────────
     var CATEGORIES = {
+        'default': { en: 'Default', jp: 'デフォルト' },
         'indo-japan': { en: 'Indo Japan Corridor', jp: 'インド・日本コリドー' },
         'indo-us': { en: 'Indo US Corridor', jp: 'インド・米国コリドー' },
         'indo-europe': { en: 'Indo Europe Corridor', jp: 'インド・欧州コリドー' }
@@ -258,55 +253,27 @@ var ArticlesStore = (function () {
     var UI_LABELS = {
         en: {
             home: 'Home',
-            articles: 'Articles',
-            searchPlaceholder: 'Search articles by title or keyword...',
-            noResults: 'No articles found matching your criteria.',
+            articles: 'Publications',
+            searchPlaceholder: 'Search publications by title or keyword...',
+            noResults: 'No publications found matching your criteria.',
             readMore: 'Read More',
-            adminTitle: 'Article Manager',
-            addArticle: 'Add New Article',
-            editArticle: 'Edit Article',
-            titleLabel: 'Title',
-            descLabel: 'Short Description',
-            bodyLabel: 'Article Body',
-            categoryLabel: 'Category',
-            imageLabel: 'Image URL / Path',
-            dateLabel: 'Date',
-            authorLabel: 'Author',
-            saveBtn: 'Save Article',
-            cancelBtn: 'Cancel',
-            deleteBtn: 'Delete',
-            editBtn: 'Edit',
-            previewBtn: 'Preview',
-            enTab: 'English',
-            jpTab: 'Japanese',
-            backToArticles: '← Back to Articles',
-            disclaimer: 'Views are personal. For any feedback or query, feel free to connect with us at'
+            backToArticles: '← Back to Publications',
+            disclaimer: 'Views are personal. For any feedback or query, feel free to connect with us at',
+            filterAll: 'All Categories',
+            filterNewest: 'Newest First',
+            filterOldest: 'Oldest First'
         },
         jp: {
             home: 'ホーム',
-            articles: '記事',
-            searchPlaceholder: 'タイトルまたはキーワードで記事を検索...',
-            noResults: '条件に一致する記事が見つかりません。',
+            articles: '出版物',
+            searchPlaceholder: 'タイトルまたはキーワードで出版物を検索...',
+            noResults: '条件に一致する出版物が見つかりません。',
             readMore: '続きを読む',
-            adminTitle: '記事管理',
-            addArticle: '新しい記事を追加',
-            editArticle: '記事を編集',
-            titleLabel: 'タイトル',
-            descLabel: '簡単な説明',
-            bodyLabel: '記事本文',
-            categoryLabel: 'カテゴリー',
-            imageLabel: '画像URL / パス',
-            dateLabel: '日付',
-            authorLabel: '著者',
-            saveBtn: '記事を保存',
-            cancelBtn: 'キャンセル',
-            deleteBtn: '削除',
-            editBtn: '編集',
-            previewBtn: 'プレビュー',
-            enTab: '英語',
-            jpTab: '日本語',
-            backToArticles: '← 記事一覧に戻る',
-            disclaimer: 'ご意見は個人的なものです。フィードバックやお問い合わせは、以下までお気軽にご連絡ください：'
+            backToArticles: '← 出版物一覧に戻る',
+            disclaimer: 'ご意見は個人的なものです。フィードバックやお問い合わせは、以下までお気軽にご連絡ください：',
+            filterAll: 'すべてのカテゴリー',
+            filterNewest: '新しい順',
+            filterOldest: '古い順'
         }
     };
 
@@ -322,7 +289,6 @@ var ArticlesStore = (function () {
         addArticle: addArticle,
         updateArticle: updateArticle,
         deleteArticle: deleteArticle,
-        getDynamicOnly: getDynamicOnly,
         formatDate: formatDate,
         getCategoryName: getCategoryName,
         CATEGORIES: CATEGORIES,
