@@ -97,7 +97,7 @@ var ArticlesStore = (function () {
             image: 'images/article/Article5.jpg',
             date: '2023-11-23',
             author: 'Admin',
-            legacySlug: "Digital rupee(e₹)as india's central bank digital currency.html",
+            legacySlug: "Digital rupee(e₹)as india’s central bank digital currency.html",
             content: {
                 en: {
                     title: "Digital rupee(e₹) as india's central bank digital currency",
@@ -133,24 +133,26 @@ var ArticlesStore = (function () {
         }
     ];
 
+    // --- Supabase Config ---
+    var SUPABASE_URL = 'https://fgsnwktexkvhiclvxckz.supabase.co';
+    var SUPABASE_ANON_KEY = 'sb_publishable_oBjpmqrzZpxo8zrCzfQkrA_D7wLigGL';
+    var supabaseClient = window.supabase ? window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY) : null;
+
     // ── Helpers ───────────────────────────────────────────────────────
 
-    function _load() {
-        try {
-            var raw = localStorage.getItem(STORAGE_KEY);
-            return raw ? JSON.parse(raw) : [];
-        } catch (e) {
+    async function _loadFromDB() {
+        if (!supabaseClient) return [];
+        var { data, error } = await supabaseClient.from('articles').select('*');
+        if (error) {
+            console.error('Error fetching articles from Supabase:', error);
             return [];
         }
-    }
-
-    function _save(articles) {
-        localStorage.setItem(STORAGE_KEY, JSON.stringify(articles));
+        return data || [];
     }
 
     /** Merge seed + dynamic; dynamic articles override seeds with same id */
-    function getAll() {
-        var dynamic = _load();
+    async function getAll() {
+        var dynamic = await _loadFromDB();
         var merged = SEED_ARTICLES.slice(); // clone seeds
         var seedIds = {};
         for (var i = 0; i < merged.length; i++) {
@@ -158,6 +160,8 @@ var ArticlesStore = (function () {
         }
         for (var j = 0; j < dynamic.length; j++) {
             var art = dynamic[j];
+            // map legacySlug if stored as legacy_slug
+            if (art.legacy_slug) art.legacySlug = art.legacy_slug;
             if (seedIds.hasOwnProperty(art.id)) {
                 merged[seedIds[art.id]] = art; // override seed
             } else {
@@ -171,45 +175,46 @@ var ArticlesStore = (function () {
         return merged;
     }
 
-    function getById(id) {
-        var all = getAll();
+    async function getById(id) {
+        var all = await getAll();
         for (var i = 0; i < all.length; i++) {
             if (all[i].id === id) return all[i];
         }
         return null;
     }
 
-    function addArticle(article) {
-        var dynamic = _load();
+    async function addArticle(article) {
         if (!article.id) {
             article.id = 'article-' + Date.now();
         }
-        dynamic.push(article);
-        _save(dynamic);
+        if (!supabaseClient) return article;
+        // Clean up legacySlug field name for DB
+        var dbArticle = Object.assign({}, article);
+        if (dbArticle.legacySlug) {
+            dbArticle.legacy_slug = dbArticle.legacySlug;
+            delete dbArticle.legacySlug;
+        }
+        var { error } = await supabaseClient.from('articles').insert([dbArticle]);
+        if (error) console.error('Error adding article:', error);
         return article;
     }
 
-    function updateArticle(id, updatedArticle) {
-        var dynamic = _load();
-        var found = false;
-        for (var i = 0; i < dynamic.length; i++) {
-            if (dynamic[i].id === id) {
-                dynamic[i] = updatedArticle;
-                found = true;
-                break;
-            }
+    async function updateArticle(id, updatedArticle) {
+        if (!supabaseClient) return;
+        updatedArticle.id = id;
+        var dbArticle = Object.assign({}, updatedArticle);
+        if (dbArticle.legacySlug) {
+            dbArticle.legacy_slug = dbArticle.legacySlug;
+            delete dbArticle.legacySlug;
         }
-        if (!found) {
-            updatedArticle.id = id;
-            dynamic.push(updatedArticle);
-        }
-        _save(dynamic);
+        var { error } = await supabaseClient.from('articles').update(dbArticle).eq('id', id);
+        if (error) console.error('Error updating article:', error);
     }
 
-    function deleteArticle(id) {
-        var dynamic = _load();
-        dynamic = dynamic.filter(function (a) { return a.id !== id; });
-        _save(dynamic);
+    async function deleteArticle(id) {
+        if (!supabaseClient) return;
+        var { error } = await supabaseClient.from('articles').delete().eq('id', id);
+        if (error) console.error('Error deleting article:', error);
     }
 
     function formatDate(dateStr, lang) {
@@ -295,7 +300,8 @@ var ArticlesStore = (function () {
         getLang: getLang,
         setLang: setLang,
         getLabel: getLabel,
-        UI_LABELS: UI_LABELS
+        UI_LABELS: UI_LABELS,
+        supabase: supabaseClient
     };
 
 })();

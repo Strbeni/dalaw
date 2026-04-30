@@ -391,6 +391,7 @@ Shahid Bhagat Singh Rd, Between RBI & GPO, Ballard Estate, Fort, Mumbai, Maharas
         <!-- main js -->
         <script src="js/main.js"></script>
         <!-- Articles Data -->
+        <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
         <script src="js/articles-data.js"></script>
 
         <!-- Article View Script -->
@@ -398,7 +399,7 @@ Shahid Bhagat Singh Rd, Between RBI & GPO, Ballard Estate, Fort, Mumbai, Maharas
         (function($) {
             'use strict';
 
-            $(document).ready(function() {
+            $(document).ready(async function() {
                 var lang = ArticlesStore.getLang();
 
                 var urlParams = new URLSearchParams(window.location.search);
@@ -409,7 +410,7 @@ Shahid Bhagat Singh Rd, Between RBI & GPO, Ballard Estate, Fort, Mumbai, Maharas
                     return;
                 }
 
-                var article = ArticlesStore.getById(articleId);
+                var article = await ArticlesStore.getById(articleId);
                 if (!article) {
                     showNotFound(lang);
                     return;

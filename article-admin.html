@@ -240,23 +240,22 @@
 
 <script src="js/jquery.min.js"></script>
 <script src="https://cdn.quilljs.com/1.3.7/quill.min.js"></script>
-<script src="js/articles-data.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="js/articles-data.js"></script>
 <script>
 (function($){
     'use strict';
 
-    // --- Supabase Config ---
-    var SUPABASE_URL = 'https://fgsnwktexkvhiclvxckz.supabase.co';
-    var SUPABASE_ANON_KEY = 'sb_publishable_oBjpmqrzZpxo8zrCzfQkrA_D7wLigGL';
-    var supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+    var supabase = ArticlesStore.supabase;
 
     // Check existing session
-    supabase.auth.getSession().then(function(res) {
-        if (res.data.session) {
-            showAdmin();
-        }
-    });
+    if (supabase) {
+        supabase.auth.getSession().then(function(res) {
+            if (res.data.session) {
+                showAdmin();
+            }
+        });
+    }
 
     // Login handler
     $('#btn-login').on('click', doLogin);
@@ -314,8 +313,8 @@
     quillEn = new Quill('#editor-en', { theme:'snow', modules:{ toolbar: toolbarOptions }, placeholder:'Write your publication content here...' });
     quillJp = new Quill('#editor-jp', { theme:'snow', modules:{ toolbar: toolbarOptions }, placeholder:'ここに記事の内容を書いてください...' });
 
-    function renderList() {
-        var articles = ArticlesStore.getAll();
+    async function renderList() {
+        var articles = await ArticlesStore.getAll();
         var $list = $('#article-list');
         $list.empty();
         if (!articles.length) {
@@ -366,9 +365,10 @@
 
     function closeForm() { $('#form-overlay').removeClass('active'); editingId = null; }
 
-    function saveArticle() {
+    async function saveArticle() {
         var titleEn = $('#field-title-en').val().trim();
         if (!titleEn) { showToast('Please enter an English title.'); return; }
+        $('#btn-form-save').text('Saving...').prop('disabled', true);
         var article = {
             id: editingId || ('article-' + Date.now()),
             category: $('#field-category').val(),
@@ -381,14 +381,15 @@
             }
         };
         if (editingId) {
-            ArticlesStore.updateArticle(editingId, article);
+            await ArticlesStore.updateArticle(editingId, article);
             showToast('Publication updated successfully!');
         } else {
-            ArticlesStore.addArticle(article);
+            await ArticlesStore.addArticle(article);
             showToast('Publication added successfully!');
         }
+        $('#btn-form-save').text('Save Publication').prop('disabled', false);
         closeForm();
-        renderList();
+        await renderList();
     }
 
     function updateImgPreview() {
@@ -413,14 +414,14 @@
         $('.lang-content').removeClass('active');
         $('#lang-'+$(this).data('lang')).addClass('active');
     });
-    $(document).on('click','.btn-edit', function(){
-        var a = ArticlesStore.getById($(this).data('id'));
+    $(document).on('click','.btn-edit', async function(){
+        var a = await ArticlesStore.getById($(this).data('id'));
         if(a) openForm(a);
     });
-    $(document).on('click','.btn-del', function(){
+    $(document).on('click','.btn-del', async function(){
         if(confirm('Are you sure you want to delete this publication?')){
-            ArticlesStore.deleteArticle($(this).data('id'));
-            renderList();
+            await ArticlesStore.deleteArticle($(this).data('id'));
+            await renderList();
             showToast('Publication deleted.');
         }
     });
