@@ -470,6 +470,7 @@ Shahid Bhagat Singh Rd, Between RBI & GPO, Ballard Estate, Fort, Mumbai, Maharas
         <script src="js/main.js"></script>
         <!-- Articles Data -->
         <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+        <script src="js/config.js"></script>
         <script src="js/articles-data.js"></script>
 
         <!-- Articles Dynamic Render Script -->
@@ -578,10 +579,10 @@ Shahid Bhagat Singh Rd, Between RBI & GPO, Ballard Estate, Fort, Mumbai, Maharas
                         '<div class="blog-item">' +
                         '<div class="blog-image"><img src="' + imgSrc + '" alt="Blog Image"></div>' +
                         '<div class="text-bottom">' +
-                        '<h3 class="title2"><a href="' + viewUrl + '">' + (content.title || '') + '</a></h3>' +
+                        '<h3 class="title2"><a href="' + viewUrl + '.html">' + (content.title || '') + '</a></h3>' +
                         '<ul class="blog-meta"><li>' + dateStr + '</li><li>' + (a.author || 'Admin') + '</li></ul>' +
                         '<div class="blog-desc" align="justify">' + (content.description || '') + '</div>' +
-                        '<div class="blog-btn mt-17"><a href="' + viewUrl + '" class="readon2">' + readMoreLabel + '</a></div>' +
+                        '<div class="blog-btn mt-17"><a href="' + viewUrl + '.html" class="readon2">' + readMoreLabel + '</a></div>' +
                         '</div></div></div>';
                     $grid.append(card);
                 });

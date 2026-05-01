@@ -13,7 +13,7 @@ var ArticlesStore = (function () {
     var SEED_ARTICLES = [
         {
             id: 'enhancing-information-security',
-            category: 'indo-japan',
+            category: 'default',
             image: 'images/article/Article1.jpg',
             date: '2024-11-02',
             author: 'Admin',
@@ -33,7 +33,7 @@ var ArticlesStore = (function () {
         },
         {
             id: 'guidelines-dark-patterns-2023',
-            category: 'indo-us',
+            category: 'default',
             image: 'images/article/Article2.jpg',
             date: '2024-07-28',
             author: 'Admin',
@@ -53,7 +53,7 @@ var ArticlesStore = (function () {
         },
         {
             id: 'strengthening-creators-rights',
-            category: 'indo-europe',
+            category: 'default',
             image: 'images/article/Article3.jpg',
             date: '2024-04-12',
             author: 'Admin',
@@ -73,7 +73,7 @@ var ArticlesStore = (function () {
         },
         {
             id: 'fintech-self-regulatory-organizations',
-            category: 'indo-japan',
+            category: 'default',
             image: 'images/article/Article4.jpg',
             date: '2024-02-01',
             author: 'Admin',
@@ -93,7 +93,7 @@ var ArticlesStore = (function () {
         },
         {
             id: 'digital-rupee-cbdc',
-            category: 'indo-us',
+            category: 'default',
             image: 'images/article/Article5.jpg',
             date: '2023-11-23',
             author: 'Admin',
@@ -113,7 +113,7 @@ var ArticlesStore = (function () {
         },
         {
             id: 'navigating-data-privacy-regime',
-            category: 'indo-europe',
+            category: 'default',
             image: 'images/article/Article6.jpg',
             date: '2023-08-17',
             author: 'Admin',
@@ -134,9 +134,11 @@ var ArticlesStore = (function () {
     ];
 
     // --- Supabase Config ---
-    var SUPABASE_URL = 'https://fgsnwktexkvhiclvxckz.supabase.co';
-    var SUPABASE_ANON_KEY = 'sb_publishable_oBjpmqrzZpxo8zrCzfQkrA_D7wLigGL';
-    var supabaseClient = window.supabase ? window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY) : null;
+    var SUPABASE_URL = window.SUPABASE_URL || '';
+    var SUPABASE_ANON_KEY = window.SUPABASE_ANON_KEY || '';
+    var supabaseClient = (window.supabase && SUPABASE_URL && SUPABASE_ANON_KEY) 
+        ? window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY) 
+        : null;
 
     // ── Helpers ───────────────────────────────────────────────────────
 
